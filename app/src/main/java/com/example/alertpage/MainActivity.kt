@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
         var surveys = ArrayList<Survey>()
         var survey = Survey(getSurveyName(), getActionName(), getUserName())
         surveys.add(survey)
-        for(i in 1..5){
+        for (i in 1..5) {
             survey = Survey(getSurveyName(), getActionName(), getUserName())
             surveys.add(survey)
         }
@@ -103,5 +103,11 @@ fun recyclerView(names: List<Survey>) {
             listItemSurvey(name)
         }
     }
+}
 
+@Preview
+@Composable
+fun recyclerViewPreview() {
+    var survey = Survey("Some Survey Name", "started", "John Doe")
+    listItemSurvey(survey)
 }
