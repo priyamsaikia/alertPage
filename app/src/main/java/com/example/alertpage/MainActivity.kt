@@ -4,12 +4,16 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -89,10 +93,32 @@ fun listItem(txtItem: String) {
 
 @Composable
 fun listItemSurvey(survey: Survey) {
+    val expanded = remember {
+        mutableStateOf(false)
+    }
     Surface(color = Color.Cyan, modifier = Modifier.padding(16.dp)) {
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
             Text(text = "${survey.surveyName} ${survey.actionName} for ${survey.userName}.")
+            OutlinedButton(
+                onClick = { expanded.value = !expanded.value },
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                Text(if (expanded.value) "Show less" else "Show more")
+            }
+            if (expanded.value) {
+                Column {
+                    Text(
+                        modifier = Modifier.padding(top = 16.dp),
+                        text = "This is shown when clicked"
+                    )
+                }
+            }
         }
+
     }
 }
 
@@ -109,5 +135,9 @@ fun recyclerView(names: List<Survey>) {
 @Composable
 fun recyclerViewPreview() {
     var survey = Survey("Some Survey Name", "started", "John Doe")
-    listItemSurvey(survey)
+
+    Column {
+        listItemSurvey(survey)
+        listItemSurvey(survey)
+    }
 }
