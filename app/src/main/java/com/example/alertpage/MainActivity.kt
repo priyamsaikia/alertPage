@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -96,29 +99,35 @@ fun listItemSurvey(survey: Survey) {
     val expanded = remember {
         mutableStateOf(false)
     }
-    Surface(color = Color.Cyan, modifier = Modifier.padding(16.dp)) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+    Surface(modifier = Modifier.padding(16.dp)) {
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(15.dp),
+            elevation = CardDefaults.cardElevation()
         ) {
-            Text(text = "${survey.surveyName} ${survey.actionName} for ${survey.userName}.")
-            OutlinedButton(
-                onClick = { expanded.value = !expanded.value },
-                modifier = Modifier.padding(top = 16.dp)
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
             ) {
-                Text(if (expanded.value) "Show less" else "Show more")
-            }
-            if (expanded.value) {
-                Column {
-                    Text(
-                        modifier = Modifier.padding(top = 16.dp),
-                        text = "This is shown when clicked"
-                    )
+                Text(text = "${survey.surveyName} ${survey.actionName} for ${survey.userName}.")
+                OutlinedButton(
+                    onClick = { expanded.value = !expanded.value },
+                    modifier = Modifier.padding(top = 16.dp)
+                ) {
+                    Text(if (expanded.value) "Show less" else "Show more")
+                }
+                if (expanded.value) {
+                    Column {
+                        Text(
+                            modifier = Modifier.padding(top = 16.dp),
+                            text = "This is shown when clicked"
+                        )
+                    }
                 }
             }
-        }
 
+        }
     }
 }
 
