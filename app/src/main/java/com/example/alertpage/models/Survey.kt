@@ -1,3 +1,3 @@
 package com.example.alertpage.models
 
-data class Survey(val surveyName: String, val actionName: String, val userName: String)
+data class Survey(val surveyName: String, val actionName: String, val userName: String, val readFlag:Boolean = false)
